@@ -24,7 +24,10 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setMode } from "state";
 
-const Navbar = () => {
+const Navbar = ({
+	isSidebarOpen,
+	setIsSidebarOpen,
+}) => {
 	const dispatch = useDispatch();
 	const theme = useTheme();
 
@@ -39,7 +42,7 @@ const Navbar = () => {
 				{/* LEFT SIDE */}
 				<FlexBetween>
 					<IconButton
-						onClick={() => console.log("open/close sidebar")}>
+						onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
 						<MenuIcon />
 					</IconButton>
 					<FlexBetween
