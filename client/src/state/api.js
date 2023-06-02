@@ -11,8 +11,9 @@ export const api = createApi({
 		}),
 		getProducts: build.query({
 			query: () => "client/products",
+			provideTags: ["Products"],
 		}),
 	}),
 });
 
-export const { useGetUserQuery } = api;
+export const { useGetUserQuery, useGetProductsQuery } = api;
