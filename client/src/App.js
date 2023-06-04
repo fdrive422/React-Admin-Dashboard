@@ -10,6 +10,7 @@ import Dashboard from "scenes/dashboard";
 import Products from "scenes/products";
 import Customers from "scenes/customers";
 import Transactions from "scenes/transactions";
+import Geography from "scenes/geography";
 
 // Set up dark mode
 function App() {
@@ -33,6 +34,7 @@ function App() {
 								path="/transactions"
 								element={<Transactions />}
 							/>
+							<Route path="/geography" element={<Geography />} />
 						</Route>
 					</Routes>
 				</ThemeProvider>

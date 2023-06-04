@@ -1,5 +1,4 @@
 import {
-	ArrowDownwardOutlined,
 	ArrowDropDownOutlined,
 	DarkModeOutlined,
 	LightModeOutlined,
