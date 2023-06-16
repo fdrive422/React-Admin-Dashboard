@@ -8,7 +8,6 @@ import { geoData } from "state/geoData";
 const Geography = () => {
 	const theme = useTheme();
 	const { data } = useGetGeographyQuery();
-	// console.log("data", data);
 
 	return (
 		<Box m="1.5rem 2.5rem">
@@ -23,10 +22,8 @@ const Geography = () => {
 				borderRadius="4px"
 			>
 				{data ? (
-					// source code https://nivo.rocks/choropleth/
 					<ResponsiveChoropleth
 						data={data}
-						// custom color theme
 						theme={{
 							axis: {
 								domain: {
@@ -60,7 +57,6 @@ const Geography = () => {
 								},
 							},
 						}}
-						// pass data from stat/geoData
 						features={geoData.features}
 						margin={{ top: 0, right: 0, bottom: 0, left: -50 }}
 						domain={[0, 60]}
@@ -71,7 +67,7 @@ const Geography = () => {
 						projectionTranslation={[0.45, 0.6]}
 						projectionRotation={[0, 0, 0]}
 						borderWidth={1.3}
-						borderColor="#ffffff"
+						borderColor="#333333"
 						legends={[
 							{
 								anchor: "bottom-right",
