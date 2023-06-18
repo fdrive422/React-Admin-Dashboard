@@ -1,10 +1,10 @@
-## React Admin Dashboard 
+# React Admin Dashboard
 
-### <a href="https://react-admin-frontend-4p51.onrender.com/">LIVE DEMO</a>
+## <a href="https://react-admin-frontend-4p51.onrender.com/">LIVE DEMO</a>
 
 ![Screen Shot 2023-06-16 at 17 50 10 PM](https://github.com/fdrive422/React-Admin-Dashboard/assets/72363705/981f78cf-885e-4ed1-a08d-8ee34a0e6c83)
 
-# Getting Started with Create React App
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
