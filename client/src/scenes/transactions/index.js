@@ -44,7 +44,7 @@ const Transactions = () => {
 			headerName: "# of Products",
 			flex: 0.5,
 			sortable: false,
-			renderCell: (params) => params.value.length,
+			renderCell: (params) => params.value?.length ?? 0,
 		},
 		{
 			field: "cost",
@@ -102,7 +102,7 @@ const Transactions = () => {
 					onPageChange={(newPage) => setPage(newPage)}
 					onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
 					onSortModelChange={(newSortModel) =>
-						setSort(...newSortModel)
+						setSort(newSortModel[0] || {})
 					}
 					components={{ Toolbar: DataGridCustomToolbar }}
 					componentsProps={{

@@ -33,7 +33,7 @@ const Performance = () => {
 			headerName: "# of Products",
 			flex: 0.5,
 			sortable: false,
-			renderCell: (params) => params.value.length,
+			renderCell: (params) => params.value?.length ?? 0,
 		},
 		{
 			field: "cost",

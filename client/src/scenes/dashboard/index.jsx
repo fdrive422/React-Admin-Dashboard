@@ -48,7 +48,7 @@ const Dashboard = () => {
 			headerName: "# of Products",
 			flex: 0.5,
 			sortable: false,
-			renderCell: (params) => params.value.length,
+			renderCell: (params) => params.value?.length ?? 0,
 		},
 		{
 			field: "cost",
@@ -111,7 +111,7 @@ const Dashboard = () => {
 				/>
 				<StatBox
 					title="Sales Today"
-					value={data && data.todayStats.totalSales}
+					value={data?.todayStats?.totalSales}
 					increase="+21%"
 					description="Since last month"
 					icon={
@@ -134,7 +134,7 @@ const Dashboard = () => {
 				</Box>
 				<StatBox
 					title="Monthly Sales"
-					value={data && data.thisMonthStats.totalSales}
+					value={data?.thisMonthStats?.totalSales}
 					increase="+5%"
 					description="Since last month"
 					icon={

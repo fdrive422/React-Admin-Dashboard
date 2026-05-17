@@ -21,11 +21,11 @@ export const api = createApi({
 		}),
 		getProducts: build.query({
 			query: () => "client/products",
-			provideTags: ["Products"],
+			providesTags: ["Products"],
 		}),
 		getCustomers: build.query({
 			query: () => "client/customers",
-			provideTags: ["Customers"],
+			providesTags: ["Customers"],
 		}),
 		getTransactions: build.query({
 			query: ({ page, pageSize, sort, search }) => ({

@@ -75,10 +75,10 @@ const Product = ({
 					<Typography>id: {_id}</Typography>
 					<Typography>Supply Left: {supply}</Typography>
 					<Typography>
-						Yearly Sales This Year: {stat.yearlySalesTotal}
+						Yearly Sales This Year: {stat[0]?.yearlySalesTotal ?? "N/A"}
 					</Typography>
 					<Typography>
-						Yearly Units Sold This Year: {stat.yearlyTotalSoldUnits}
+						Yearly Units Sold This Year: {stat[0]?.yearlyTotalSoldUnits ?? "N/A"}
 					</Typography>
 				</CardContent>
 			</Collapse>
@@ -88,13 +88,13 @@ const Product = ({
 
 const Products = () => {
 	const { data, isLoading } = useGetProductsQuery();
-	const isNonMobile = useMediaQuery("(min-width: 1000px");
+	const isNonMobile = useMediaQuery("(min-width: 1000px)");
 	// console.log("data", data);
 
 	return (
 		<Box m="1.5rem 2.5rem">
 			<Header title="PRODUCTS" subtitle="See your list of products." />
-			{data || !isLoading ? (
+			{data && !isLoading ? (
 				<Box
 					mt="20px"
 					display="grid"

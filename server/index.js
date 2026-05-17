@@ -1,4 +1,3 @@
-import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -28,14 +27,19 @@ import {
 
 // CONFIGURATION
 dotenv.config();
+
+if (!process.env.MONGO_URL) {
+	console.error("MONGO_URL environment variable is required");
+	process.exit(1);
+}
+
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:3000" }));
 
 // ROUTES
 app.use("/client", clientRoutes);
@@ -44,21 +48,14 @@ app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
 
 // MONGOOSE SETUP
-const PORT = process.env.PORT || 9000;
 mongoose
-	.connect(process.env.MONGO_URL, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	})
-	.then(() => {
-		app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
-
-		// ONLY ADD DATA ONE TIME
-		// AffiliateStat.insertMany(dataAffiliateStat);
-		// OverallStat.insertMany(dataOverallStat);
-		// Product.insertMany(dataProduct);
-		// ProductStat.insertMany(dataProductStat);
-		// Transaction.insertMany(dataTransaction);
-		// User.insertMany(dataUser);
-	})
+	.connect(process.env.MONGO_URL)
 	.catch((error) => console.log(`${error} did not connect`));
+
+// Local dev server — Vercel provides its own listener
+if (!process.env.VERCEL) {
+	const PORT = process.env.PORT || 9000;
+	app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+}
+
+export default app;

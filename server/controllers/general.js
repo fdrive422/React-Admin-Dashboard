@@ -5,10 +5,11 @@ import Transaction from "../models/Transaction.js";
 export const getUser = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const user = await User.findById(id);
+		const user = await User.findById(id).lean();
+		if (!user) return res.status(404).json({ message: "User not found" });
 		res.status(200).json(user);
 	} catch (error) {
-		res.status(404).json({ message: error.message });
+		res.status(500).json({ message: error.message });
 	}
 };
 
@@ -22,10 +23,15 @@ export const getDashboardStats = async (req, res) => {
 		/* Recent Transactions */
 		const transactions = await Transaction.find()
 			.limit(50)
-			.sort({ createdOn: -1 });
+			.sort({ createdOn: -1 })
+			.lean();
 
 		/* Overall Stats */
-		const overallStat = await OverallStat.find({ year: currentYear });
+		const overallStat = await OverallStat.find({ year: currentYear }).lean();
+
+		if (!overallStat || overallStat.length === 0) {
+			return res.status(404).json({ message: "No stats found for the current year" });
+		}
 
 		const {
 			totalCustomers,
@@ -54,6 +60,6 @@ export const getDashboardStats = async (req, res) => {
 			transactions,
 		});
 	} catch (error) {
-		res.status(404).json({ message: error.message });
+		res.status(500).json({ message: error.message });
 	}
 };
