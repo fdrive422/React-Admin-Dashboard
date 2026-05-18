@@ -42,10 +42,10 @@ app.use(morgan("common"));
 app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:3000" }));
 
 // ROUTES
-app.use("/client", clientRoutes);
-app.use("/general", generalRoutes);
-app.use("/management", managementRoutes);
-app.use("/sales", salesRoutes);
+app.use("/api/client", clientRoutes);
+app.use("/api/general", generalRoutes);
+app.use("/api/management", managementRoutes);
+app.use("/api/sales", salesRoutes);
 
 // MONGOOSE SETUP
 mongoose
