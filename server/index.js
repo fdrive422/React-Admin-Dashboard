@@ -9,23 +9,6 @@ import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
 
-// Data Imports
-import User from "./models/User.js";
-import Product from "./models/Product.js";
-import ProductStat from "./models/ProductStat.js";
-import Transaction from "./models/Transaction.js";
-import OverallStat from "./models/OverallStat.js";
-import AffiliateStat from "./models/AffiliateStat.js";
-import {
-	dataUser,
-	dataProduct,
-	dataProductStat,
-	dataTransaction,
-	dataOverallStat,
-	dataAffiliateStat,
-} from "./data/index.js";
-
-// CONFIGURATION
 dotenv.config();
 
 if (!process.env.MONGO_URL) {
@@ -38,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.use(morgan("common"));
+if (process.env.NODE_ENV !== "production") app.use(morgan("common"));
 app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:3000" }));
 
 // ROUTES
@@ -47,10 +30,19 @@ app.use("/api/general", generalRoutes);
 app.use("/api/management", managementRoutes);
 app.use("/api/sales", salesRoutes);
 
-// MONGOOSE SETUP
-mongoose
-	.connect(process.env.MONGO_URL)
-	.catch((error) => console.log(`${error} did not connect`));
+// Reuse connection across warm Vercel invocations
+let isConnected = false;
+async function connectDB() {
+	if (isConnected && mongoose.connection.readyState === 1) return;
+	await mongoose.connect(process.env.MONGO_URL, {
+		maxPoolSize: 10,
+		serverSelectionTimeoutMS: 5000,
+		socketTimeoutMS: 30000,
+		bufferCommands: false,
+	});
+	isConnected = true;
+}
+connectDB().catch((err) => console.error("MongoDB connection error:", err.message));
 
 // Local dev server — Vercel provides its own listener
 if (!process.env.VERCEL) {
