@@ -38,3 +38,6 @@ yarn-error.log*
 #claude
 claude.md
 .claude
+
+# dev-only scripts
+seed.js
