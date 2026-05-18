@@ -1,6 +1,6 @@
 # React Admin Dashboard
 
-## <a href="https://react-admin-frontend-4p51.onrender.com/">LIVE DEMO</a>
+## <a href="https://react-admin-dashboard-git-main-fdrive422s-projects.vercel.app">LIVE DEMO</a>
 
 ![Screen Shot 2023-06-16 at 17 50 10 PM](https://github.com/fdrive422/React-Admin-Dashboard/assets/72363705/981f78cf-885e-4ed1-a08d-8ee34a0e6c83)
 
